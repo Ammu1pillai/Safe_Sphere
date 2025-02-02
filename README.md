@@ -83,9 +83,8 @@ Backend image
 ### Project Demo
 
 Video
-!
 
-[Add your demo video link here]
+
 Demonstation of working of Safe-Sphere
 
 ## Team Contributions
