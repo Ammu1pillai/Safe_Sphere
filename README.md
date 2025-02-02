@@ -76,16 +76,16 @@ Display of safety score and recommendations.
 
 Suggested safer routes based on user input.
 
-![backend](https://github.com/user-attachments/assets/ccb72855-1515-4002-b838-1318c1ea4479]
-
-Backend image
+https://drive.google.com/file/d/1uJVB1DAjkpW7uVQ-RFP-g18dbfSLebFP/view?usp=drive_link
+https://drive.google.com/file/d/1irlcBalan05mb80RbT_cHfsosVbdJX1D/view?usp=drive_link
+https://drive.google.com/file/d/1b15VyvFg-b0ZnpTq_XEzGHvoiZVCMF-s/view?usp=drive_link
+Images
 
 ### Project Demo
 
 Video
-
-
-Demonstation of working of Safe-Sphere
+https://drive.google.com/file/d/1YwYoCcwtgijcqhN0h95qTzSHmvDwLV9Q/view?usp=sharing
+Demonstration of Safe Sphere.
 
 ## Team Contributions
 
