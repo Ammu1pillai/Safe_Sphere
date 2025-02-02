@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSphere - Emergency Services</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-image: url('https://img.freepik.com/free-vector/pink-watercolor-abstract-background_52683-73541.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: rgb(0, 0, 0);
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            margin: 3px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            color: white;
+            width: 100%;
+            max-width: 280px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emergency-services-button {
+            background-color: red;
+        }
+
+        .contact-button {
+            background-color: blue;
+        }
+
+        .back-button {
+            background-color: grey;
+        }
+
+        @media (max-width: 600px) {
+            button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            h1, h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Emergency Services</h1>
+    <button class="emergency-services-button" onclick="confirmCall('100')">Call Police</button>
+    <button class="emergency-services-button" onclick="confirmCall('102')">Call Ambulance</button>
+    <button class="emergency-services-button" onclick="confirmCall('101')">Call Fire Force</button>
+
+    <h2>Immediate Contacts</h2>
+    <button class="contact-button" id="contact1-btn">Call Contact 1</button>
+    <button class="contact-button" id="contact2-btn">Call Contact 2</button>
+    
+    <button class="back-button" onclick="window.location.href='index3.html';">Go Back</button>
+
+    <script>
+        function confirmCall(number) {
+            if (confirm("Are you sure you want to call this emergency service?")) {
+                window.location.href = "tel:" + number;
+            }
+        }
+
+        function getEmergencyContacts() {
+            return {
+                contact1: localStorage.getItem("contact1") || "+1234567890",
+                contact2: localStorage.getItem("contact2") || "+0987654321"
+            };
+        }
+
+        function setUpContacts() {
+            const contacts = getEmergencyContacts();
+            document.getElementById("contact1-btn").onclick = function() {
+                confirmCall(contacts.contact1);
+            };
+            document.getElementById("contact2-btn").onclick = function() {
+                confirmCall(contacts.contact2);
+            };
+        }
+
+        setUpContacts();
+    </script>
+</body>
+</html>

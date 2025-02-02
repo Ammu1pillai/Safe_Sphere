@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSphere Input Form</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            background-image: url(https://png.pngtree.com/png-clipart/20211219/original/pngtree-cherry-blossom-branch-png-with-sakura-flower-on-transparent-background-watercolor-png-image_6967380.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Logo Animation */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493; }
+            50% { text-shadow: 0 0 20px #ff1493, 0 0 40px #ff69b4; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo {
+            font-size: 50px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            color: #ff1493;
+            animation: glow 2s infinite alternate, bounce 3s infinite ease-in-out;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            padding: 30px;
+            background-color: rgb(240, 133, 195);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0.9;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            width: 95%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf54;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px;
+            }
+
+            label, input, button {
+                font-size: 12px;
+            }
+
+            .form-container {
+                padding: 15px;
+            }
+        }
+    </style>
+    <script>
+        // Define backend port
+        const backendPort = window.location.port || 8021; // Use current port or default to 8017 // Set this to the port your server is running on
+        async function validateForm() {
+            const destination = document.getElementById("destination").value;
+            const exitTime = document.getElementById("exit-time").value;
+            const arrivalTime = document.getElementById("arrival-time").value;
+
+            if (!destination || !exitTime || !arrivalTime) {
+                document.getElementById("error-message").style.display = "block";
+                return;
+            }
+
+            document.getElementById("error-message").style.display = "none";
+
+            try {
+                const response = await fetch(`http://localhost:${backendPort}/api/submit-trip`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ destination, exitTime, arrivalTime }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit trip details');
+                }
+
+                const data = await response.json();
+                console.log('Trip submitted:', data);
+                window.location.href = "index3.html"; // Redirect to index3.html
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an issue submitting the form. Please try again.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Animated SafeSphere Logo -->
+    <div class="logo">SafeSphere</div>
+
+    <div class="form-container">
+        <h2>Enter Your Trip Details</h2>
+        <div>
+            <label for="destination">Please enter the place you want to go:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter destination">
+        </div>
+        <div>
+            <label for="exit-time">Exit time (when you leave home):</label>
+            <input type="time" id="exit-time" name="exit-time">
+        </div>
+        <div>
+            <label for="arrival-time">Arrival time (when you reach destination):</label>
+            <input type="time" id="arrival-time" name="arrival-time">
+        </div>
+        <div>
+            <button onclick="validateForm()">Go</button>
+        </div>
+        <div id="error-message" class="error-message">All fields are required!</div>
+    </div>
+</body>
+</html>
+
